@@ -1,0 +1,4 @@
+Nagtray is an utility that shows status of Icinga/Nagios
+status via mk_livestatus extension.
+
+Current version is early stage of development.
