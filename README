@@ -2,3 +2,28 @@ Nagtray is an utility that shows status of Icinga/Nagios
 status via mk_livestatus extension.
 
 Current version is early stage of development.
+
+
+Server side setup
+-----------------
+
+Stunnel on server:
+
+cat /etc/stunnel/stunnel.conf 
+
+#up this number to 7 to get full log details
+#leave it at 3 to just get critical error messages
+debug=7
+output=/var/log/stunnel.log
+
+[stunnel]
+accept=6558
+connect=6557
+
+Testing command:
+
+stunnel3 -A /etc/openldap/cesnet.pem -a /etc/stunnel/trusted/ -v 3 -f -d 6558 -r 6557
+
+Test that stunnel works:
+
+openssl s_client -connect monitor.farm.particle.cz:6558 -cert cert_stuff/koubat/newcert.pem -key cert_stuff/koubat/newkey.pem
