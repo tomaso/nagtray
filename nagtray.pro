@@ -9,6 +9,7 @@ SOURCES += main.cpp \
     mainwindow.cpp
 HEADERS += mainwindow.h
 FORMS += mainwindow.ui \
-    configwindow.ui
+    configwindow.ui \
+    edit_connection.ui
 OTHER_FILES += README
 RESOURCES += nagtray.qrc

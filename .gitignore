@@ -1,0 +1,5 @@
+*.o
+nagtray
+moc_*
+Makefile*
+nagtray.pro.user
