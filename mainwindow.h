@@ -26,6 +26,7 @@ private:
 
 
 private slots:
+    void on_action_Configuration_triggered();
     void on_action_Quit_triggered();
     void on_actionQuit_triggered();
 };

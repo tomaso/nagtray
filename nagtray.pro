@@ -6,10 +6,16 @@ QT += network \
 TARGET = nagtray
 TEMPLATE = app
 SOURCES += main.cpp \
-    mainwindow.cpp
-HEADERS += mainwindow.h
+    mainwindow.cpp \
+    configwindow.cpp \
+    editconnection.cpp \
+    connection.cpp
+HEADERS += mainwindow.h \
+    configwindow.h \
+    editconnection.h \
+    connection.h
 FORMS += mainwindow.ui \
     configwindow.ui \
-    edit_connection.ui
+    editconnection.ui
 OTHER_FILES += README
 RESOURCES += nagtray.qrc

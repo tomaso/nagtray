@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "configwindow.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -45,4 +46,10 @@ void MainWindow::on_actionQuit_triggered()
 void MainWindow::on_action_Quit_triggered()
 {
     qApp->quit();
+}
+
+void MainWindow::on_action_Configuration_triggered()
+{
+    ConfigWindow cw;
+    cw.exec();
 }

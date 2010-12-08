@@ -53,19 +53,21 @@
      <height>20</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu_Help">
+    <property name="title">
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="action_About"/>
+   </widget>
    <widget class="QMenu" name="menu_File">
     <property name="title">
      <string>&amp;File</string>
     </property>
     <addaction name="action_Refresh"/>
     <addaction name="separator"/>
+    <addaction name="action_Configuration"/>
+    <addaction name="separator"/>
     <addaction name="action_Quit"/>
-   </widget>
-   <widget class="QMenu" name="menu_Help">
-    <property name="title">
-     <string>&amp;Help</string>
-    </property>
-    <addaction name="action_About"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Help"/>
@@ -108,6 +110,11 @@
   <action name="action_About">
    <property name="text">
     <string>&amp;About</string>
+   </property>
+  </action>
+  <action name="action_Configuration">
+   <property name="text">
+    <string>&amp;Configuration</string>
    </property>
   </action>
  </widget>

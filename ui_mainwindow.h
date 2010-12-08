@@ -35,14 +35,15 @@ public:
     QAction *action_Refresh;
     QAction *action_Quit;
     QAction *action_About;
+    QAction *action_Configuration;
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout_2;
     QFrame *frame;
     QVBoxLayout *verticalLayout;
     QTreeWidget *treeWidget;
     QMenuBar *menuBar;
-    QMenu *menu_File;
     QMenu *menu_Help;
+    QMenu *menu_File;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
 
@@ -61,6 +62,8 @@ public:
         action_Quit->setObjectName(QString::fromUtf8("action_Quit"));
         action_About = new QAction(MainWindow);
         action_About->setObjectName(QString::fromUtf8("action_About"));
+        action_Configuration = new QAction(MainWindow);
+        action_Configuration->setObjectName(QString::fromUtf8("action_Configuration"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         verticalLayout_2 = new QVBoxLayout(centralWidget);
@@ -95,10 +98,10 @@ public:
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 433, 20));
-        menu_File = new QMenu(menuBar);
-        menu_File->setObjectName(QString::fromUtf8("menu_File"));
         menu_Help = new QMenu(menuBar);
         menu_Help->setObjectName(QString::fromUtf8("menu_Help"));
+        menu_File = new QMenu(menuBar);
+        menu_File->setObjectName(QString::fromUtf8("menu_File"));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -110,10 +113,12 @@ public:
 
         menuBar->addAction(menu_File->menuAction());
         menuBar->addAction(menu_Help->menuAction());
+        menu_Help->addAction(action_About);
         menu_File->addAction(action_Refresh);
         menu_File->addSeparator();
+        menu_File->addAction(action_Configuration);
+        menu_File->addSeparator();
         menu_File->addAction(action_Quit);
-        menu_Help->addAction(action_About);
 
         retranslateUi(MainWindow);
 
@@ -131,8 +136,9 @@ public:
         action_Refresh->setText(QApplication::translate("MainWindow", "&Refresh", 0, QApplication::UnicodeUTF8));
         action_Quit->setText(QApplication::translate("MainWindow", "&Quit", 0, QApplication::UnicodeUTF8));
         action_About->setText(QApplication::translate("MainWindow", "&About", 0, QApplication::UnicodeUTF8));
-        menu_File->setTitle(QApplication::translate("MainWindow", "&File", 0, QApplication::UnicodeUTF8));
+        action_Configuration->setText(QApplication::translate("MainWindow", "&Configuration", 0, QApplication::UnicodeUTF8));
         menu_Help->setTitle(QApplication::translate("MainWindow", "&Help", 0, QApplication::UnicodeUTF8));
+        menu_File->setTitle(QApplication::translate("MainWindow", "&File", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };
