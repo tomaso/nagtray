@@ -16,6 +16,11 @@ EditConnection::EditConnection(Connection *conn, QWidget *parent) :
     } else {
         ui->localRB->setChecked(false);
         ui->remoteRB->setChecked(true);
+        ui->hostLE->setText(connection->host());
+        ui->portLE->setText(QString(connection->port()));
+        ui->sslCB->setChecked(connection->useSSL());
+        if(connection->useSSL())
+            ui->pkcsLE->setText(connection->pkcs12());
     }
 }
 
@@ -38,12 +43,15 @@ void EditConnection::changeEvent(QEvent *e)
 
 void EditConnection::on_buttonBox_accepted()
 {
-    qDebug("edit conneciton accepted");
     connection->setName(ui->nameLE->text());
+    connection->setLocal(ui->localRB->isChecked());
     connection->setSocket(ui->socketLE->text());
+    connection->setHost(ui->hostLE->text());
+    connection->setPort(ui->portLE->text().toInt());
+    connection->setUseSSL(ui->sslCB->isChecked());
+    connection->setPkcs12(ui->pkcsLE->text());
 }
 
 void EditConnection::on_buttonBox_rejected()
 {
-    qDebug("edit conneciton rejected");
 }

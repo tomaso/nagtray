@@ -21,7 +21,7 @@
 #include <QtGui/QMenuBar>
 #include <QtGui/QStatusBar>
 #include <QtGui/QToolBar>
-#include <QtGui/QTreeWidget>
+#include <QtGui/QTreeView>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
 
@@ -40,7 +40,7 @@ public:
     QVBoxLayout *verticalLayout_2;
     QFrame *frame;
     QVBoxLayout *verticalLayout;
-    QTreeWidget *treeWidget;
+    QTreeView *hostView;
     QMenuBar *menuBar;
     QMenu *menu_Help;
     QMenu *menu_File;
@@ -52,6 +52,9 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
         MainWindow->resize(433, 350);
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/images/error.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        MainWindow->setWindowIcon(icon);
         actionShowMain = new QAction(MainWindow);
         actionShowMain->setObjectName(QString::fromUtf8("actionShowMain"));
         actionShowConfiguration = new QAction(MainWindow);
@@ -78,18 +81,10 @@ public:
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        treeWidget = new QTreeWidget(frame);
-        QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem();
-        __qtreewidgetitem->setText(0, QString::fromUtf8("1"));
-        treeWidget->setHeaderItem(__qtreewidgetitem);
-        treeWidget->setObjectName(QString::fromUtf8("treeWidget"));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(treeWidget->sizePolicy().hasHeightForWidth());
-        treeWidget->setSizePolicy(sizePolicy);
+        hostView = new QTreeView(frame);
+        hostView->setObjectName(QString::fromUtf8("hostView"));
 
-        verticalLayout->addWidget(treeWidget);
+        verticalLayout->addWidget(hostView);
 
 
         verticalLayout_2->addWidget(frame);
@@ -127,7 +122,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0, QApplication::UnicodeUTF8));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "Nagtray", 0, QApplication::UnicodeUTF8));
         actionShowMain->setText(QApplication::translate("MainWindow", "ShowMain", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP
         actionShowMain->setToolTip(QApplication::translate("MainWindow", "Show main window", 0, QApplication::UnicodeUTF8));

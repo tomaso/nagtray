@@ -1,6 +1,8 @@
 #include <QtGui/QApplication>
 #include <QtGui>
 #include "mainwindow.h"
+#include "connection.h"
+#include "globalconfig.h"
 
 int main(int argc, char *argv[])
 {
@@ -13,7 +15,14 @@ int main(int argc, char *argv[])
                                           "on this system."));
         return 1;
     }
-    QApplication::setQuitOnLastWindowClosed(false);
+    //Commented out for debugging
+    //QApplication::setQuitOnLastWindowClosed(false);
+
+    if(!Connection::LoadListFromXML(CONNECTIONS_FILE)) {
+        QMessageBox::critical(NULL, QApplication::tr("Starting error"),
+                              QApplication::tr("Cannot load saved connections - will start with empty list.")
+                              );
+    }
 
     MainWindow w;
     w.show();

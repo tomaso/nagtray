@@ -15,6 +15,7 @@
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QDialog>
+#include <QtGui/QDialogButtonBox>
 #include <QtGui/QFrame>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
@@ -45,6 +46,7 @@ public:
     QSpacerItem *verticalSpacer;
     QWidget *alertStyleTab;
     QWidget *filteringTab;
+    QDialogButtonBox *buttonBox;
 
     void setupUi(QDialog *ConfigWindow)
     {
@@ -87,11 +89,13 @@ public:
 
         enableButton = new QPushButton(frame);
         enableButton->setObjectName(QString::fromUtf8("enableButton"));
+        enableButton->setEnabled(false);
 
         verticalLayout_2->addWidget(enableButton);
 
         disableButton = new QPushButton(frame);
         disableButton->setObjectName(QString::fromUtf8("disableButton"));
+        disableButton->setEnabled(false);
 
         verticalLayout_2->addWidget(disableButton);
 
@@ -112,8 +116,16 @@ public:
 
         verticalLayout->addWidget(tabWidget);
 
+        buttonBox = new QDialogButtonBox(ConfigWindow);
+        buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
+        buttonBox->setStandardButtons(QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Save);
+
+        verticalLayout->addWidget(buttonBox);
+
 
         retranslateUi(ConfigWindow);
+        QObject::connect(buttonBox, SIGNAL(accepted()), ConfigWindow, SLOT(accept()));
+        QObject::connect(buttonBox, SIGNAL(rejected()), ConfigWindow, SLOT(reject()));
 
         tabWidget->setCurrentIndex(0);
 
@@ -123,7 +135,7 @@ public:
 
     void retranslateUi(QDialog *ConfigWindow)
     {
-        ConfigWindow->setWindowTitle(QApplication::translate("ConfigWindow", "Dialog", 0, QApplication::UnicodeUTF8));
+        ConfigWindow->setWindowTitle(QApplication::translate("ConfigWindow", "Configuration", 0, QApplication::UnicodeUTF8));
         addButton->setText(QApplication::translate("ConfigWindow", "&Add", 0, QApplication::UnicodeUTF8));
         editButton->setText(QApplication::translate("ConfigWindow", "&Edit", 0, QApplication::UnicodeUTF8));
         removeButton->setText(QApplication::translate("ConfigWindow", "&Remove", 0, QApplication::UnicodeUTF8));

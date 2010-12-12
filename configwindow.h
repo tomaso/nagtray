@@ -25,6 +25,8 @@ private slots:
 
 
 private slots:
+    void on_buttonBox_rejected();
+    void on_listView_doubleClicked(QModelIndex index);
     void on_removeButton_clicked();
     void on_editButton_clicked();
     void on_addButton_clicked();

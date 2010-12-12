@@ -136,6 +136,13 @@ public:
 
         verticalLayout->addWidget(buttonBox);
 
+#ifndef QT_NO_SHORTCUT
+        label_2->setBuddy(hostLE);
+        label_3->setBuddy(portLE);
+        label_4->setBuddy(pkcsLE);
+        label->setBuddy(socketLE);
+        label_5->setBuddy(nameLE);
+#endif // QT_NO_SHORTCUT
 
         retranslateUi(EditConnection);
         QObject::connect(buttonBox, SIGNAL(accepted()), EditConnection, SLOT(accept()));
@@ -147,15 +154,16 @@ public:
     void retranslateUi(QDialog *EditConnection)
     {
         EditConnection->setWindowTitle(QApplication::translate("EditConnection", "Edit connection", 0, QApplication::UnicodeUTF8));
-        remoteRB->setText(QApplication::translate("EditConnection", "Remote", 0, QApplication::UnicodeUTF8));
-        label_2->setText(QApplication::translate("EditConnection", "Host:", 0, QApplication::UnicodeUTF8));
-        label_3->setText(QApplication::translate("EditConnection", "Port:", 0, QApplication::UnicodeUTF8));
-        sslCB->setText(QApplication::translate("EditConnection", "Use SSL", 0, QApplication::UnicodeUTF8));
-        label_4->setText(QApplication::translate("EditConnection", "pkcs12 file:", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("EditConnection", "Socket:", 0, QApplication::UnicodeUTF8));
-        localRB->setText(QApplication::translate("EditConnection", "Local", 0, QApplication::UnicodeUTF8));
+        remoteRB->setText(QApplication::translate("EditConnection", "&Remote", 0, QApplication::UnicodeUTF8));
+        label_2->setText(QApplication::translate("EditConnection", "&Host", 0, QApplication::UnicodeUTF8));
+        label_3->setText(QApplication::translate("EditConnection", "&Port", 0, QApplication::UnicodeUTF8));
+        sslCB->setText(QApplication::translate("EditConnection", "&Use SSL", 0, QApplication::UnicodeUTF8));
+        label_4->setText(QApplication::translate("EditConnection", "p&kcs12 file", 0, QApplication::UnicodeUTF8));
+        label->setText(QApplication::translate("EditConnection", "&Socket", 0, QApplication::UnicodeUTF8));
+        localRB->setText(QApplication::translate("EditConnection", "&Local", 0, QApplication::UnicodeUTF8));
         socketLE->setText(QString());
-        label_5->setText(QApplication::translate("EditConnection", "Name", 0, QApplication::UnicodeUTF8));
+        nameLE->setText(QString());
+        label_5->setText(QApplication::translate("EditConnection", "&Name", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

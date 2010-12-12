@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QSystemTrayIcon>
+#include <QStandardItemModel>
+#include "connection.h"
 
 class QMenu;
 
@@ -23,12 +25,15 @@ private:
     Ui::MainWindow *ui;
     QMenu *trayIconMenu;
     QSystemTrayIcon *trayIcon;
+    QStandardItemModel modelHosts;
 
+public slots:
+    void connectionRefreshed(Connection *c);
 
 private slots:
+    void on_action_Refresh_triggered();
     void on_action_Configuration_triggered();
     void on_action_Quit_triggered();
-    void on_actionQuit_triggered();
 };
 
 #endif // MAINWINDOW_H

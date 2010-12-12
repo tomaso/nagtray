@@ -33,7 +33,10 @@
       <item row="2" column="2">
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>Host:</string>
+         <string>&amp;Host</string>
+        </property>
+        <property name="buddy">
+         <cstring>hostLE</cstring>
         </property>
        </widget>
       </item>
@@ -43,7 +46,10 @@
       <item row="3" column="2">
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>Port:</string>
+         <string>&amp;Port</string>
+        </property>
+        <property name="buddy">
+         <cstring>portLE</cstring>
         </property>
        </widget>
       </item>
@@ -60,7 +66,10 @@
       <item row="5" column="1" colspan="2">
        <widget class="QLabel" name="label_4">
         <property name="text">
-         <string>pkcs12 file:</string>
+         <string>p&amp;kcs12 file</string>
+        </property>
+        <property name="buddy">
+         <cstring>pkcsLE</cstring>
         </property>
        </widget>
       </item>
@@ -70,7 +79,10 @@
       <item row="1" column="2">
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Socket:</string>
+         <string>&amp;Socket</string>
+        </property>
+        <property name="buddy">
+         <cstring>socketLE</cstring>
         </property>
        </widget>
       </item>
@@ -98,7 +110,10 @@
       <item row="0" column="2">
        <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>Name</string>
+         <string>&amp;Name</string>
+        </property>
+        <property name="buddy">
+         <cstring>nameLE</cstring>
         </property>
        </widget>
       </item>
