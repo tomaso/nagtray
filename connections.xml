@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connections>
+  <connection name="localhost" local="yes" socket="/var/lib/nagios/rw/live" />
+  <connection name="elfsocat" local="yes" socket="/tmp/elflive" />
+<!--
+  <connection name="elf" local="no" host="elf.farm.particle.cz" port="6558" useSSL="yes" pkcs12="/home/koubat/cert_stuff/koubat/koubat.p12" />
+-->
+
+</connections>
