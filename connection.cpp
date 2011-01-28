@@ -156,7 +156,8 @@ void Connection::handleError(QLocalSocket::LocalSocketError error)
     case QLocalSocket::ServerNotFoundError:
         QMessageBox::information(NULL, tr("Communication error"),
                                  tr("The socket was not found. Please check the "
-                                    "socket file exists."));
+                                    "socket file exists: %1").arg(this->socket())
+                                 );
         break;
     case QLocalSocket::ConnectionRefusedError:
         QMessageBox::information(NULL, tr("Communication error"),
