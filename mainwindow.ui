@@ -29,7 +29,36 @@
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <widget class="QTreeView" name="hostView"/>
+        <widget class="QTabWidget" name="tabWidget">
+         <property name="currentIndex">
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="tab_2">
+          <attribute name="title">
+           <string>Hostgroups</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <widget class="QTreeView" name="hostView_2"/>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tabHosts">
+          <attribute name="title">
+           <string>Hosts</string>
+          </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <item>
+            <widget class="QTreeView" name="hostView"/>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab">
+          <attribute name="title">
+           <string>Services</string>
+          </attribute>
+         </widget>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -74,6 +103,8 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="separator"/>
+   <addaction name="action_Refresh"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionShowMain">

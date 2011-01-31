@@ -17,7 +17,8 @@ HEADERS += mainwindow.h \
     editconnection.h \
     connection.h \
     globalconfig.h \
-    host.h
+    host.h \
+    hostgroup.h
 FORMS += mainwindow.ui \
     configwindow.ui \
     editconnection.ui

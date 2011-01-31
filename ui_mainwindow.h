@@ -20,6 +20,7 @@
 #include <QtGui/QMenu>
 #include <QtGui/QMenuBar>
 #include <QtGui/QStatusBar>
+#include <QtGui/QTabWidget>
 #include <QtGui/QToolBar>
 #include <QtGui/QTreeView>
 #include <QtGui/QVBoxLayout>
@@ -40,7 +41,11 @@ public:
     QVBoxLayout *verticalLayout_2;
     QFrame *frame;
     QVBoxLayout *verticalLayout;
+    QTabWidget *tabWidget;
+    QWidget *tabHosts;
+    QVBoxLayout *verticalLayout_3;
     QTreeView *hostView;
+    QWidget *tabServices;
     QMenuBar *menuBar;
     QMenu *menu_Help;
     QMenu *menu_File;
@@ -81,10 +86,25 @@ public:
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        hostView = new QTreeView(frame);
+        tabWidget = new QTabWidget(frame);
+        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
+        tabHosts = new QWidget();
+        tabHosts->setObjectName(QString::fromUtf8("tabHosts"));
+        verticalLayout_3 = new QVBoxLayout(tabHosts);
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        hostView = new QTreeView(tabHosts);
         hostView->setObjectName(QString::fromUtf8("hostView"));
 
-        verticalLayout->addWidget(hostView);
+        verticalLayout_3->addWidget(hostView);
+
+        tabWidget->addTab(tabHosts, QString());
+        tabServices = new QWidget();
+        tabServices->setObjectName(QString::fromUtf8("tabServices"));
+        tabWidget->addTab(tabServices, QString());
+
+        verticalLayout->addWidget(tabWidget);
 
 
         verticalLayout_2->addWidget(frame);
@@ -114,8 +134,13 @@ public:
         menu_File->addAction(action_Configuration);
         menu_File->addSeparator();
         menu_File->addAction(action_Quit);
+        mainToolBar->addSeparator();
+        mainToolBar->addAction(action_Refresh);
 
         retranslateUi(MainWindow);
+
+        tabWidget->setCurrentIndex(0);
+
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
@@ -132,6 +157,8 @@ public:
         action_Quit->setText(QApplication::translate("MainWindow", "&Quit", 0, QApplication::UnicodeUTF8));
         action_About->setText(QApplication::translate("MainWindow", "&About", 0, QApplication::UnicodeUTF8));
         action_Configuration->setText(QApplication::translate("MainWindow", "&Configuration", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tabHosts), QApplication::translate("MainWindow", "Tab 1", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tabServices), QApplication::translate("MainWindow", "Tab 2", 0, QApplication::UnicodeUTF8));
         menu_Help->setTitle(QApplication::translate("MainWindow", "&Help", 0, QApplication::UnicodeUTF8));
         menu_File->setTitle(QApplication::translate("MainWindow", "&File", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
