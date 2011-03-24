@@ -55,3 +55,23 @@ void EditConnection::on_buttonBox_accepted()
 void EditConnection::on_buttonBox_rejected()
 {
 }
+
+void EditConnection::on_sslCB_clicked()
+{
+    ui->pkcsLE->setEnabled(ui->sslCB->isChecked());
+}
+
+void EditConnection::on_localRB_clicked()
+{
+    ui->socketL->setEnabled(ui->localRB->isChecked());
+    ui->socketLE->setEnabled(ui->localRB->isChecked());
+    ui->hostL->setEnabled(ui->remoteRB->isChecked());
+    ui->hostLE->setEnabled(ui->remoteRB->isChecked());
+    ui->portL->setEnabled(ui->remoteRB->isChecked());
+    ui->portLE->setEnabled(ui->remoteRB->isChecked());
+}
+
+void EditConnection::on_remoteRB_clicked()
+{
+    this->on_localRB_clicked();
+}

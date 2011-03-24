@@ -31,7 +31,10 @@
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="hostL">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>&amp;Host</string>
         </property>
@@ -41,10 +44,17 @@
        </widget>
       </item>
       <item row="2" column="3">
-       <widget class="QLineEdit" name="hostLE"/>
+       <widget class="QLineEdit" name="hostLE">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
       <item row="3" column="2">
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="portL">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>&amp;Port</string>
         </property>
@@ -54,7 +64,11 @@
        </widget>
       </item>
       <item row="3" column="3">
-       <widget class="QLineEdit" name="portLE"/>
+       <widget class="QLineEdit" name="portLE">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
       <item row="4" column="3">
        <widget class="QCheckBox" name="sslCB">
@@ -64,7 +78,10 @@
        </widget>
       </item>
       <item row="5" column="1" colspan="2">
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="pkcsL">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="text">
          <string>p&amp;kcs12 file</string>
         </property>
@@ -74,10 +91,14 @@
        </widget>
       </item>
       <item row="5" column="3">
-       <widget class="QLineEdit" name="pkcsLE"/>
+       <widget class="QLineEdit" name="pkcsLE">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
       <item row="1" column="2">
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="socketL">
         <property name="text">
          <string>&amp;Socket</string>
         </property>
@@ -90,6 +111,9 @@
        <widget class="QRadioButton" name="localRB">
         <property name="text">
          <string>&amp;Local</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -108,7 +132,7 @@
        </widget>
       </item>
       <item row="0" column="2">
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="nameL">
         <property name="text">
          <string>&amp;Name</string>
         </property>

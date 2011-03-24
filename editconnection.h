@@ -28,6 +28,9 @@ private slots:
 private slots:
     void on_buttonBox_rejected();
     void on_buttonBox_accepted();
+    void on_sslCB_clicked();
+    void on_localRB_clicked();
+    void on_remoteRB_clicked();
 };
 
 
