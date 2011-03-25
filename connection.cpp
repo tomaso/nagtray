@@ -59,16 +59,85 @@ Connection::Connection() :
         _local(true),
         _socket("/var/lib/nagios/rw/live"),
         isConnected(false),
-        refreshAfterConnected(false)
+        refreshAfterConnected(false),
+        dataRefreshPending(false)
 {
     Connection::List.append(this);
+    ls = new QLocalSocket();
 }
 
 
 Connection::~Connection()
 {
+    delete ls;
     Connection::List.removeOne(this);
 }
+
+
+void Connection::liveRefreshData()
+{
+    if(ls->state()==QLocalSocket::ConnectedState) {
+        int bytesWritten;
+        bytesWritten = ls->write("GET hosts\nKeepAlive: on\nSeparators: "
+                                 DATASET_SEPARATOR_STRING
+                                 " "
+                                 FIELD_SEPARATOR_STRING
+                                 " "
+                                 LIST_SEPARATOR_STRING
+                                 " "
+                                 HOST_SERVICE_SEPARATOR_STRING
+                                 "\n\n");
+        qDebug("bytesWritten: %d", bytesWritten);
+    } else {
+        connect(ls, SIGNAL(connected()), this, SLOT(connected()));
+        connect(ls, SIGNAL(disconnected()), this, SLOT(disconnected()));
+        connect(ls, SIGNAL(error(QLocalSocket::LocalSocketError)), this, SLOT(handleError(QLocalSocket::LocalSocketError)));
+        connect(ls, SIGNAL(readyRead()), this, SLOT(readData()));
+        ls->connectToServer(this->socket());
+        dataRefreshPending = true;
+    }
+}
+
+void Connection::disconnected()
+{
+    // pretty much nothing right now
+/*
+    int i,j;
+
+    for(i=0;i<liveHosts.size();i++) {
+        delete liveHosts[i];
+    }
+    liveHosts.clear();
+    if(!readBuffer.isEmpty()) {
+        // TODO: this parsing should be replaced with json (livestatus can return json data)
+        QStringList lines = readBuffer.split("\n");
+        QStringList keys = lines[0].split(FIELD_SEPARATOR_CHAR);
+        for(i=1;i<lines.size();i++) {
+            QStringList values = lines[i].split(FIELD_SEPARATOR_CHAR);
+            if(keys.size() != values.size())
+                continue;
+            Host *newhost = new Host;
+            for(j=0;j<keys.size();j++) {
+                newhost->attributes.insert(keys[j], values[j]);
+            }
+            liveHosts.append(newhost);
+        }
+    }
+    emit liveHostsRefreshed(this);
+    isConnected = false;
+    readBuffer.clear();
+*/
+}
+
+
+
+void Connection::connected()
+{
+    if(dataRefreshPending)
+        this->liveRefreshData();
+}
+
+
 
 
 bool Connection::refreshLiveHosts()
@@ -112,42 +181,6 @@ bool Connection::refreshLiveHosts()
 }
 
 
-void Connection::connected()
-{
-    isConnected = true;
-    if(refreshAfterConnected)
-       this->refreshLiveHosts();
-    refreshAfterConnected = false;
-}
-
-
-void Connection::disconnected()
-{
-    int i,j;
-
-    for(i=0;i<liveHosts.size();i++) {
-        delete liveHosts[i];
-    }
-    liveHosts.clear();
-    if(!readBuffer.isEmpty()) {
-        // TODO: this parsing should be replaced with json (livestatus can return json data)
-        QStringList lines = readBuffer.split("\n");
-        QStringList keys = lines[0].split(FIELD_SEPARATOR_CHAR);
-        for(i=1;i<lines.size();i++) {
-            QStringList values = lines[i].split(FIELD_SEPARATOR_CHAR);
-            if(keys.size() != values.size())
-                continue;
-            Host *newhost = new Host;
-            for(j=0;j<keys.size();j++) {
-                newhost->attributes.insert(keys[j], values[j]);
-            }
-            liveHosts.append(newhost);
-        }
-    }
-    emit liveHostsRefreshed(this);
-    isConnected = false;
-    readBuffer.clear();
-}
 
 
 void Connection::handleError(QLocalSocket::LocalSocketError error)

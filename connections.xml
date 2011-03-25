@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <connections>
-  <connection name="localhost" local="yes" socket="/var/spool/nagios/live" />
+  <connection name="localhost" local="yes" socket="/var/lib/nagios/rw/live" />
 <!--
   <connection name="elfsocat" local="yes" socket="/tmp/elflive" />
 -->

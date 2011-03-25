@@ -33,6 +33,8 @@ protected:
     bool refreshAfterConnected;
     QLocalSocket *ls;
     QString readBuffer;
+    // This might be a queue of requests in the future
+    bool dataRefreshPending;    //!< Should we update data when the connection is established?
 
 public:
     Connection();
@@ -61,8 +63,13 @@ public:
      */
     static bool LoadListFromXML(QString filename);
 
+    /*! \brief Instruct connection to refresh overview data.
+     *  Emits FIXME when new data is available.
+     */
+    void liveRefreshData();
+
 signals:
-    void liveHostsRefreshed(Connection *);
+    void liveLiveHosts(Connection *);
 
 public slots:
     void connected();
