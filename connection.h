@@ -8,12 +8,26 @@
 #include <QList>
 #include <QLocalSocket>
 #include "host.h"
+#include "service.h"
 
 #define MYPROP(type, name, upname) \
     type name() { return _##name; } \
     void set##upname(type name) { _##name = name; }
 
-typedef enum { RT_NONE, RT_HOSTS, RT_SERVICES } tRequest;
+
+typedef enum { RT_HOSTS, RT_SERVICES, RT_HOST, RT_SERVICE } tRequestType;
+
+/*! \brief Request for data that is issued to the livestatus connection
+ *
+ */
+class Request {
+public:
+    tRequestType type;   //!< Type of the request
+    int id;                                                     //!< Id of the host or service that should be refreshed
+public:
+    Request(tRequestType _type);
+    Request(tRequestType _type, int _id);
+};
 
 /*! \brief Represents connection to a livestatus daemon.
  *
@@ -37,7 +51,7 @@ protected:
     QString readBuffer;
     // This might be a queue of requests in the future
     bool dataRefreshPending;    //!< Should we update data when the connection is established?
-    tRequest reqType;           //!< Type of the processed request
+    QList<Request> reqQueue;           //!< Type of the processed request
 
 
 public:
@@ -55,6 +69,7 @@ public:
     MYPROP(QString, password, Password);
 
     QList<Host *> liveHosts;
+    QList<Services *> liveServices;
 
     //! Connects to the host and get info about the hosts
     bool refreshLiveHosts();

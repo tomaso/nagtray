@@ -11,14 +11,16 @@ SOURCES += main.cpp \
     configwindow.cpp \
     editconnection.cpp \
     connection.cpp \
-    host.cpp
+    host.cpp \
+    service.cpp
 HEADERS += mainwindow.h \
     configwindow.h \
     editconnection.h \
     connection.h \
     globalconfig.h \
     host.h \
-    hostgroup.h
+    hostgroup.h \
+    service.h
 FORMS += mainwindow.ui \
     configwindow.ui \
     editconnection.ui
