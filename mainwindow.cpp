@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     Connection *c;
     foreach(c, Connection::List) {
         connect(c, SIGNAL(liveHostsRefreshed(Connection*)), this, SLOT(connectionRefreshed(Connection*)));
+        //connect(c, SIGNAL(liveServicesRefreshed(Connection*)), this, SLOT(connectionRefreshed(Connection*)));
     }
 }
 
@@ -63,12 +64,7 @@ void MainWindow::on_action_Refresh_triggered()
     Connection *c;
 
     foreach (c, Connection::List) {
-        if(!c->refreshLiveHosts()) {
-            QMessageBox::critical(this, QString("Connection error"),
-                                  QString("Cannot connect to %1").arg(c->name())
-                                  );
-            continue;
-        }
+        c->liveRefreshData();
     }
 }
 

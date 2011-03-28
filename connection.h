@@ -13,6 +13,8 @@
     type name() { return _##name; } \
     void set##upname(type name) { _##name = name; }
 
+typedef enum { RT_NONE, RT_HOSTS, RT_SERVICES } tRequest;
+
 /*! \brief Represents connection to a livestatus daemon.
  *
  */
@@ -35,6 +37,8 @@ protected:
     QString readBuffer;
     // This might be a queue of requests in the future
     bool dataRefreshPending;    //!< Should we update data when the connection is established?
+    tRequest reqType;           //!< Type of the processed request
+
 
 public:
     Connection();
@@ -68,8 +72,11 @@ public:
      */
     void liveRefreshData();
 
+
 signals:
-    void liveLiveHosts(Connection *);
+    void liveHostsRefreshed(Connection *);
+    void liveServicesRefreshed(Connection *);
+
 
 public slots:
     void connected();
