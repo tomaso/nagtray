@@ -2,7 +2,7 @@
 ** Form generated from reading UI file 'mainwindow.ui'
 **
 ** Created
-**      by: Qt User Interface Compiler version 4.6.3
+**      by: Qt User Interface Compiler version 4.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -15,6 +15,7 @@
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QFrame>
+#include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenu>
@@ -38,14 +39,19 @@ public:
     QAction *action_About;
     QAction *action_Configuration;
     QWidget *centralWidget;
-    QVBoxLayout *verticalLayout_2;
+    QHBoxLayout *horizontalLayout;
     QFrame *frame;
     QVBoxLayout *verticalLayout;
     QTabWidget *tabWidget;
+    QWidget *tab_2;
+    QVBoxLayout *verticalLayout_4;
+    QTreeView *hostgroupView;
     QWidget *tabHosts;
     QVBoxLayout *verticalLayout_3;
     QTreeView *hostView;
-    QWidget *tabServices;
+    QWidget *tab;
+    QVBoxLayout *verticalLayout_2;
+    QTreeView *serviceView;
     QMenuBar *menuBar;
     QMenu *menu_Help;
     QMenu *menu_File;
@@ -74,10 +80,10 @@ public:
         action_Configuration->setObjectName(QString::fromUtf8("action_Configuration"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        verticalLayout_2 = new QVBoxLayout(centralWidget);
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        horizontalLayout = new QHBoxLayout(centralWidget);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         frame = new QFrame(centralWidget);
         frame->setObjectName(QString::fromUtf8("frame"));
         frame->setFrameShape(QFrame::StyledPanel);
@@ -88,6 +94,18 @@ public:
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         tabWidget = new QTabWidget(frame);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
+        tab_2 = new QWidget();
+        tab_2->setObjectName(QString::fromUtf8("tab_2"));
+        verticalLayout_4 = new QVBoxLayout(tab_2);
+        verticalLayout_4->setSpacing(6);
+        verticalLayout_4->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        hostgroupView = new QTreeView(tab_2);
+        hostgroupView->setObjectName(QString::fromUtf8("hostgroupView"));
+
+        verticalLayout_4->addWidget(hostgroupView);
+
+        tabWidget->addTab(tab_2, QString());
         tabHosts = new QWidget();
         tabHosts->setObjectName(QString::fromUtf8("tabHosts"));
         verticalLayout_3 = new QVBoxLayout(tabHosts);
@@ -100,19 +118,28 @@ public:
         verticalLayout_3->addWidget(hostView);
 
         tabWidget->addTab(tabHosts, QString());
-        tabServices = new QWidget();
-        tabServices->setObjectName(QString::fromUtf8("tabServices"));
-        tabWidget->addTab(tabServices, QString());
+        tab = new QWidget();
+        tab->setObjectName(QString::fromUtf8("tab"));
+        verticalLayout_2 = new QVBoxLayout(tab);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        serviceView = new QTreeView(tab);
+        serviceView->setObjectName(QString::fromUtf8("serviceView"));
+
+        verticalLayout_2->addWidget(serviceView);
+
+        tabWidget->addTab(tab, QString());
 
         verticalLayout->addWidget(tabWidget);
 
 
-        verticalLayout_2->addWidget(frame);
+        horizontalLayout->addWidget(frame);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 433, 20));
+        menuBar->setGeometry(QRect(0, 0, 433, 19));
         menu_Help = new QMenu(menuBar);
         menu_Help->setObjectName(QString::fromUtf8("menu_Help"));
         menu_File = new QMenu(menuBar);
@@ -157,8 +184,9 @@ public:
         action_Quit->setText(QApplication::translate("MainWindow", "&Quit", 0, QApplication::UnicodeUTF8));
         action_About->setText(QApplication::translate("MainWindow", "&About", 0, QApplication::UnicodeUTF8));
         action_Configuration->setText(QApplication::translate("MainWindow", "&Configuration", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tabHosts), QApplication::translate("MainWindow", "Tab 1", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tabServices), QApplication::translate("MainWindow", "Tab 2", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Hostgroups", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tabHosts), QApplication::translate("MainWindow", "Hosts", 0, QApplication::UnicodeUTF8));
+        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "Services", 0, QApplication::UnicodeUTF8));
         menu_Help->setTitle(QApplication::translate("MainWindow", "&Help", 0, QApplication::UnicodeUTF8));
         menu_File->setTitle(QApplication::translate("MainWindow", "&File", 0, QApplication::UnicodeUTF8));
     } // retranslateUi

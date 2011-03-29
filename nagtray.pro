@@ -20,7 +20,8 @@ HEADERS += mainwindow.h \
     globalconfig.h \
     host.h \
     hostgroup.h \
-    service.h
+    service.h \
+    servicegroup.h
 FORMS += mainwindow.ui \
     configwindow.ui \
     editconnection.ui

@@ -14,11 +14,11 @@
    <string>Nagtray</string>
   </property>
   <property name="windowIcon">
-   <iconset>
+   <iconset resource="nagtray.qrc">
     <normaloff>:/images/error.svg</normaloff>:/images/error.svg</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QFrame" name="frame">
       <property name="frameShape">
@@ -39,7 +39,7 @@
           </attribute>
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
-            <widget class="QTreeView" name="hostView_2"/>
+            <widget class="QTreeView" name="hostgroupView"/>
            </item>
           </layout>
          </widget>
@@ -57,6 +57,11 @@
           <attribute name="title">
            <string>Services</string>
           </attribute>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QTreeView" name="serviceView"/>
+           </item>
+          </layout>
          </widget>
         </widget>
        </item>
@@ -71,7 +76,7 @@
      <x>0</x>
      <y>0</y>
      <width>433</width>
-     <height>20</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Help">
@@ -142,6 +147,8 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="nagtray.qrc"/>
+ </resources>
  <connections/>
 </ui>

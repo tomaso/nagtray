@@ -22,12 +22,15 @@ MainWindow::MainWindow(QWidget *parent) :
     trayIcon->setContextMenu(trayIconMenu);
     trayIcon->show();
 
+    ui->hostgroupView->setModel(&this->modelHostgroups);
     ui->hostView->setModel(&this->modelHosts);
+    ui->serviceView->setModel(&this->modelServices);
 
     Connection *c;
     foreach(c, Connection::List) {
-        connect(c, SIGNAL(liveHostsRefreshed(Connection*)), this, SLOT(connectionRefreshed(Connection*)));
-        //connect(c, SIGNAL(liveServicesRefreshed(Connection*)), this, SLOT(connectionRefreshed(Connection*)));
+        connect(c, SIGNAL(liveHostgroupsRefreshed(Connection*)), this, SLOT(hostgroupsRefreshed(Connection*)));
+        connect(c, SIGNAL(liveHostsRefreshed(Connection*)), this, SLOT(hostsRefreshed(Connection*)));
+        connect(c, SIGNAL(liveServicesRefreshed(Connection*)), this, SLOT(servicesRefreshed(Connection*)));
     }
 }
 
@@ -68,14 +71,46 @@ void MainWindow::on_action_Refresh_triggered()
     }
 }
 
-void MainWindow::connectionRefreshed(Connection *c)
+
+void MainWindow::hostgroupsRefreshed(Connection *c)
 {
-    Host *lh;
+    Hostgroup *lhg;
     QStandardItem *newitem;
 
-    foreach (lh, c->liveHosts) {
-        newitem = new QStandardItem(lh->attributes.value(LIVESTATUS_HOST_KEY));
+    foreach (lhg, c->liveHostgroups) {
+        newitem = new QStandardItem(lhg->attributes.value("alias"));
         newitem->setEditable(false);
-        modelHosts.appendRow(newitem);
+        modelHostgroups.appendRow(newitem);
+    }
+}
+
+
+void MainWindow::hostsRefreshed(Connection *c)
+{
+    Host *lh;
+    QList<QStandardItem *> row;
+
+    modelHosts.insertColumns(0,2);
+    modelHosts.setHeaderData(0,Qt::Horizontal,QString("hostname"));
+    modelHosts.setHeaderData(0,Qt::Horizontal,QString("status"));
+
+    foreach (lh, c->liveHosts) {
+        row.append(new QStandardItem(lh->attributes.value("name")));
+        row.append(new QStandardItem(lh->attributes.value("last_hard_state")));
+        modelHosts.appendRow(row);
+        row.clear();
+    }
+}
+
+
+void MainWindow::servicesRefreshed(Connection *c)
+{
+    Service *ls;
+    QStandardItem *newitem;
+
+    foreach (ls, c->liveServices) {
+        newitem = new QStandardItem(QString("%1 - %2").arg(ls->attributes.value("host_display_name")).arg(ls->attributes.value("display_name")));
+        newitem->setEditable(false);
+        modelServices.appendRow(newitem);
     }
 }

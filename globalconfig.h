@@ -3,6 +3,7 @@
 
 #define CONNECTIONS_FILE "connections.xml"
 #define LIVESTATUS_HOST_KEY "name"
+#define LIVESTATUS_SERVICE_KEY "name"
 
 #define FIELD_SEPARATOR_STRING "126"
 #define FIELD_SEPARATOR_CHAR '~'

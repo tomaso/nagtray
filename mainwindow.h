@@ -25,10 +25,15 @@ private:
     Ui::MainWindow *ui;
     QMenu *trayIconMenu;
     QSystemTrayIcon *trayIcon;
+    QStandardItemModel modelHostgroups;
     QStandardItemModel modelHosts;
+    QStandardItemModel modelServices;
+
 
 public slots:
-    void connectionRefreshed(Connection *c);
+    void hostgroupsRefreshed(Connection *c);
+    void hostsRefreshed(Connection *c);
+    void servicesRefreshed(Connection *c);
 
 private slots:
     void on_action_Refresh_triggered();

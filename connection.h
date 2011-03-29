@@ -7,6 +7,8 @@
 //#include <QMap>
 #include <QList>
 #include <QLocalSocket>
+#include "hostgroup.h"
+#include "servicegroup.h"
 #include "host.h"
 #include "service.h"
 
@@ -14,8 +16,16 @@
     type name() { return _##name; } \
     void set##upname(type name) { _##name = name; }
 
+#define RESPONSE_CODE_OK                 200
+#define RESPONSE_CODE_INVALID_HEADER     400
+#define RESPONSE_CODE_UNAUTHORIZED       403
+#define RESPONSE_CODE_NOT_FOUND          404
+#define RESPONSE_CODE_INCOMPLETE_REQUEST 451
+#define RESPONSE_CODE_INVALID_REQUEST    452
+#define RESPONSE_CODE_UNKNOWN_COLUMN     450
 
-typedef enum { RT_HOSTS, RT_SERVICES, RT_HOST, RT_SERVICE } tRequestType;
+
+typedef enum { RT_HOSTGROUPS, RT_HOSTS, RT_SERVICES, RT_HOSTGROUP, RT_HOST, RT_SERVICE } tRequestType;
 
 /*! \brief Request for data that is issued to the livestatus connection
  *
@@ -53,6 +63,10 @@ protected:
     bool dataRefreshPending;    //!< Should we update data when the connection is established?
     QList<Request> reqQueue;           //!< Type of the processed request
 
+    bool readingHeader;         //!< Reading header (true) or data body (false)
+    QString headerBuffer;
+    int responseCode;
+    int dataLength;
 
 public:
     Connection();
@@ -68,8 +82,9 @@ public:
     MYPROP(QString, pkcs12, Pkcs12);
     MYPROP(QString, password, Password);
 
+    QList<Hostgroup *> liveHostgroups;
     QList<Host *> liveHosts;
-    QList<Services *> liveServices;
+    QList<Service *> liveServices;
 
     //! Connects to the host and get info about the hosts
     bool refreshLiveHosts();
@@ -87,11 +102,14 @@ public:
      */
     void liveRefreshData();
 
+    void parseBufferHostgroups();
+    void parseBufferHosts();
+    void parseBufferServices();
 
 signals:
+    void liveHostgroupsRefreshed(Connection *);
     void liveHostsRefreshed(Connection *);
     void liveServicesRefreshed(Connection *);
-
 
 public slots:
     void connected();
