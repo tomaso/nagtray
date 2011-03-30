@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    hostsDelegate = new LabelDelegate;
+
     trayIconMenu = new QMenu(this);
     trayIconMenu->addAction(ui->actionShowMain);
     trayIconMenu->addAction(ui->actionShowConfiguration);
@@ -24,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->hostgroupView->setModel(&this->modelHostgroups);
     ui->hostView->setModel(&this->modelHosts);
+    ui->hostView->setItemDelegateForColumn(1,hostsDelegate);
     ui->serviceView->setModel(&this->modelServices);
 
     Connection *c;
@@ -88,17 +91,41 @@ void MainWindow::hostgroupsRefreshed(Connection *c)
 void MainWindow::hostsRefreshed(Connection *c)
 {
     Host *lh;
-    QList<QStandardItem *> row;
+    int i;
+    QString hostname;
+    QStandardItem *newitem;
 
+    ui->hostView->header()->setResizeMode(QHeaderView::ResizeToContents);
     modelHosts.insertColumns(0,2);
     modelHosts.setHeaderData(0,Qt::Horizontal,QString("hostname"));
-    modelHosts.setHeaderData(0,Qt::Horizontal,QString("status"));
+    modelHosts.setHeaderData(1,Qt::Horizontal,QString("status"));
 
-    foreach (lh, c->liveHosts) {
-        row.append(new QStandardItem(lh->attributes.value("name")));
-        row.append(new QStandardItem(lh->attributes.value("last_hard_state")));
-        modelHosts.appendRow(row);
-        row.clear();
+    i=0;
+    modelHosts.insertRows(0,c->liveHosts.length());
+    foreach (lh, c->liveHosts) {    
+        hostname = lh->attributes.value("name");
+        Host::hostHash.insert(hostname, lh);
+        modelHosts.setData(modelHosts.index(i, 0), hostname);
+
+        int state=lh->attributes.value("last_hard_state").toInt();
+        if(state)
+            modelHosts.setData(modelHosts.index(i, 1), QString("<font style='color: #f30'>%1</font>").arg(state));
+        else
+            modelHosts.setData(modelHosts.index(i, 1), QString("%1").arg(state));
+        lh->host_index = modelHosts.index(i,0);
+        i++;
+    }
+
+    // Link services under hosts if available
+    Service *ls;
+    foreach (ls, c->liveServices) {
+        hostname = ls->attributes.value("host_display_name");
+        if(Host::hostHash.contains(hostname)) {
+            lh = Host::hostHash.value(hostname);
+            newitem = new QStandardItem(QString("%1").arg(ls->attributes.value("display_name")));
+            newitem->setEditable(false);
+            modelHosts.itemFromIndex(lh->host_index)->insertRow(0, newitem);
+        }
     }
 }
 

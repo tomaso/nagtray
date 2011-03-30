@@ -5,6 +5,7 @@
 #include <QSystemTrayIcon>
 #include <QStandardItemModel>
 #include "connection.h"
+#include "labeldelegate.h"
 
 class QMenu;
 
@@ -29,6 +30,7 @@ private:
     QStandardItemModel modelHosts;
     QStandardItemModel modelServices;
 
+    LabelDelegate *hostsDelegate;
 
 public slots:
     void hostgroupsRefreshed(Connection *c);

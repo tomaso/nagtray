@@ -12,7 +12,8 @@ SOURCES += main.cpp \
     editconnection.cpp \
     connection.cpp \
     host.cpp \
-    service.cpp
+    service.cpp \
+    labeldelegate.cpp
 HEADERS += mainwindow.h \
     configwindow.h \
     editconnection.h \
@@ -21,7 +22,8 @@ HEADERS += mainwindow.h \
     host.h \
     hostgroup.h \
     service.h \
-    servicegroup.h
+    servicegroup.h \
+    labeldelegate.h
 FORMS += mainwindow.ui \
     configwindow.ui \
     editconnection.ui

@@ -103,18 +103,6 @@ void Connection::liveRefreshData()
         qDebug("bytesWritten: %d", bytesWritten);
         reqQueue.append(Request(RT_HOSTGROUPS, 0));
 
-        bytesWritten = ls->write("GET hosts\nKeepAlive: on\nResponseHeader: fixed16\nSeparators: "
-                                 DATASET_SEPARATOR_STRING
-                                 " "
-                                 FIELD_SEPARATOR_STRING
-                                 " "
-                                 LIST_SEPARATOR_STRING
-                                 " "
-                                 HOST_SERVICE_SEPARATOR_STRING
-                                 "\n\n");
-        qDebug("bytesWritten: %d", bytesWritten);
-        reqQueue.append(Request(RT_HOSTS, 0));
-
         bytesWritten = ls->write("GET services\nKeepAlive: on\nResponseHeader: fixed16\nSeparators: "
                                  DATASET_SEPARATOR_STRING
                                  " "
@@ -126,6 +114,18 @@ void Connection::liveRefreshData()
                                  "\n\n");
         qDebug("bytesWritten: %d", bytesWritten);
         reqQueue.append(Request(RT_SERVICES, 0));
+
+        bytesWritten = ls->write("GET hosts\nKeepAlive: on\nResponseHeader: fixed16\nSeparators: "
+                                 DATASET_SEPARATOR_STRING
+                                 " "
+                                 FIELD_SEPARATOR_STRING
+                                 " "
+                                 LIST_SEPARATOR_STRING
+                                 " "
+                                 HOST_SERVICE_SEPARATOR_STRING
+                                 "\n\n");
+        qDebug("bytesWritten: %d", bytesWritten);
+        reqQueue.append(Request(RT_HOSTS, 0));
 
         readingHeader = true;
         headerBuffer.clear();
