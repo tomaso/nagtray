@@ -35,6 +35,9 @@ MainWindow::MainWindow(QWidget *parent) :
         connect(c, SIGNAL(liveHostsRefreshed(Connection*)), this, SLOT(hostsRefreshed(Connection*)));
         connect(c, SIGNAL(liveServicesRefreshed(Connection*)), this, SLOT(servicesRefreshed(Connection*)));
     }
+    connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+            this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
+
 }
 
 MainWindow::~MainWindow()
@@ -139,5 +142,20 @@ void MainWindow::servicesRefreshed(Connection *c)
         newitem = new QStandardItem(QString("%1 - %2").arg(ls->attributes.value("host_display_name")).arg(ls->attributes.value("display_name")));
         newitem->setEditable(false);
         modelServices.appendRow(newitem);
+    }
+}
+
+void MainWindow::iconActivated(QSystemTrayIcon::ActivationReason reason)
+{
+    switch (reason) {
+    case QSystemTrayIcon::Trigger:
+        trayIcon->showMessage("Head", "Body", QSystemTrayIcon::Information, 3000);
+
+        break;
+    case QSystemTrayIcon::DoubleClick:
+        //TODO: show main window
+        break;
+    default:
+        ;
     }
 }

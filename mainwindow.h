@@ -41,6 +41,7 @@ private slots:
     void on_action_Refresh_triggered();
     void on_action_Configuration_triggered();
     void on_action_Quit_triggered();
+    void iconActivated(QSystemTrayIcon::ActivationReason reason);
 };
 
 #endif // MAINWINDOW_H
